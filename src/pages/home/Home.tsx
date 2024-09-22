@@ -1,4 +1,5 @@
 import Navbar from "../../components/Navbar"
+import Parent from "../hooks/Parent"
 
 const Home = () => {
   return (
@@ -6,6 +7,9 @@ const Home = () => {
       <div>
         <Navbar></Navbar>
         <h3>Home</h3>
+        <div>
+          <Parent />
+        </div>
       </div>
     </>
   )
