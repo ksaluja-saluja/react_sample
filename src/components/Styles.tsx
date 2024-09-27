@@ -15,6 +15,34 @@ export const MainContainer = styled.div`
 `;
 
 export const ChildContainer = styled.div`
-  color: green;
   padding: 10px 10px 10px 10px;
+`;
+
+export const InlineContainer = styled.div`
+  display: inline-block;
+  align-items: left;
+  background-color: yellow;
+`;
+
+export const FlexContainer = styled.div`
+  display: flex;
+  width: 100%;
+
+  .child {
+    flex: 1;
+    /* border: 2px solid blueviolet; */
+    margin: 10px;
+  }
+  .child:first-child {
+    margin-right: 20px;
+  }
+`;
+
+export const BlockContainer = styled.div`
+  display: block;
+  background-color: lightgray;
+`;
+
+export const ErrorContainer = styled.div`
+  color: red;
 `;
