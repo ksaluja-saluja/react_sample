@@ -1,23 +1,21 @@
-import { Link } from "react-router-dom";
+import { NavLink, MainContainer, ChildContainer } from "./Styles";
 
 const Navbar = () => {
-    return (
-        <>
-            <nav>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/about">About</Link>
-                    </li>
-                    <li>
-                        <Link to="/contact">Contact Us</Link>
-                    </li>
-                </ul>
-            </nav>
-        </>
-    )
-}
+  return (
+    <>
+      <MainContainer>
+        <nav>
+          <ul>
+            <ChildContainer>
+              <NavLink to="/">Home</NavLink>
+              <NavLink to="/about">About</NavLink>
+              <NavLink to="/contact">Contact Us</NavLink>
+            </ChildContainer>
+          </ul>
+        </nav>
+      </MainContainer>
+    </>
+  );
+};
 
-export default Navbar
+export default Navbar;
