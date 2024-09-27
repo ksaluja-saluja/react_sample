@@ -1,35 +1,42 @@
 import * as yup from "yup";
-import { useFormik } from "formik";
+import { useFormik, Formik, Form, Field, ErrorMessage } from "formik";
 import Navbar from "../../components/Navbar";
 import { FlexContainer, ErrorContainer } from "../../components/Styles";
 
 const ContactUs = () => {
-  const form = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      details: "",
-    },
-    onSubmit: (values) => {
-      console.log("Values", values);
-    },
-    validationSchema: yup.object({
-      firstName: yup.string().required("*"),
-      lastName: yup.string().required("*"),
-      email: yup.string().required("*"),
-      phone: yup.string().required("*"),
-      details: yup.string().required("*"),
-    }),
+  const initValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    details: "",
+  };
+
+  const handleSubmit = (values: any) => {
+    console.log("Values are", values);
+  };
+
+  const schema = yup.object({
+    firstName: yup.string().required("*"),
+    lastName: yup.string().required("*"),
+    email: yup.string().required("*"),
+    phone: yup.string().required("*"),
+    details: yup.string().required("*"),
   });
+
+  const form = useFormik({
+    initialValues: initValues,
+    onSubmit: handleSubmit,
+    validationSchema: schema,
+  });
+
   return (
     <>
       <Navbar></Navbar>
       <FlexContainer>
         <FlexContainer className="child">
           <div>
-            <h1>Contact Us</h1>
+            <h1>Form - with useFormik hook</h1>
             <h3>Have an enquiry?</h3>
             <div>
               <form onSubmit={form.handleSubmit}>
@@ -109,10 +116,62 @@ const ContactUs = () => {
         </FlexContainer>
 
         <FlexContainer className="child">
-          <p>
-            Send us a message using the form below and we’ll get back to you as
-            soon as possible.
-          </p>
+          <div>
+            <h1>Form - with Formik</h1>
+            <h3>Have an enquiry?</h3>
+            <div>
+              <Formik
+                initialValues={initValues}
+                onSubmit={handleSubmit}
+                validationSchema={schema}
+              >
+                {() => (
+                  <Form>
+                    <FlexContainer className="child">
+                      <Field name="firstName" placeholder="First Name"></Field>
+                      <ErrorMessage
+                        name="firstName"
+                        component="span"
+                      ></ErrorMessage>
+                      <Field name="lastName" placeholder="Last Name"></Field>
+                      <ErrorMessage
+                        name="lastName"
+                        component="span"
+                      ></ErrorMessage>
+                    </FlexContainer>
+                    <FlexContainer className="child">
+                      <Field
+                        name="email"
+                        placeholder="Email address"
+                        type="email"
+                      ></Field>
+                      <ErrorMessage
+                        name="email"
+                        component="span"
+                      ></ErrorMessage>
+                      <Field name="phone" placeholder="Phone number"></Field>
+                      <ErrorMessage
+                        name="phone"
+                        component="span"
+                      ></ErrorMessage>
+                    </FlexContainer>
+                    <div>
+                      <Field
+                        component="textarea"
+                        name="details"
+                        placeholder="Message"
+                      ></Field>
+                      <ErrorMessage
+                        name="details"
+                        component="span"
+                      ></ErrorMessage>
+                    </div>
+                    <button type="submit">Submit</button>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </div>
         </FlexContainer>
       </FlexContainer>
     </>
