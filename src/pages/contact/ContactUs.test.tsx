@@ -4,35 +4,110 @@ import { ContactUs } from "./ContactUs";
 import { MemoryRouter } from "react-router-dom";
 
 describe("tests", () => {
-  const verifyText = async (text: string) => {
+  const verifyTextIsPresent = async (
+    text: string,
+    shouldBePresent: boolean = true
+  ) => {
     await waitFor(() => {
-      const message = screen.getByText(text);
-      expect(message).toBeInTheDocument();
+      const message = screen.queryByText(text);
+      if (shouldBePresent) {
+        expect(message).toBeInTheDocument();
+      } else {
+        expect(message).not.toBeInTheDocument();
+      }
     });
   };
-  test("render component", () => {
+
+  const setValue = (field: string, value: string) => {
+    //const item = screen.getByRole("textbox", { name: field });
+    const item = screen.getAllByPlaceholderText(field);
+    userEvent.type(item[0], value);
+  };
+
+  beforeEach(() => {
     render(
       <MemoryRouter>
         <ContactUs />
       </MemoryRouter>
     );
+  });
+  test("render component", () => {
     const text = screen.getAllByText(/Have an enquiry?/i);
     expect(text.length).toEqual(2);
   });
 
   test("submit form without any data", async () => {
-    render(
-      <MemoryRouter>
-        <ContactUs />
-      </MemoryRouter>
-    );
-
     const button = screen.getByRole("button", { name: "Submit - via hook" });
     userEvent.click(button);
-    await verifyText("first name is required");
-    await verifyText("last name is required");
-    await verifyText("email is required");
-    await verifyText("phone is required");
-    await verifyText("details is required");
+    await verifyTextIsPresent("first name is required");
+    await verifyTextIsPresent("last name is required");
+    await verifyTextIsPresent("email is required");
+    await verifyTextIsPresent("phone is required");
+    await verifyTextIsPresent("details is required");
+  });
+
+  test("submit form without any data", async () => {
+    const button = screen.getByRole("button", { name: "Submit - via hook" });
+    userEvent.click(button);
+    await verifyTextIsPresent("first name is required");
+    await verifyTextIsPresent("last name is required");
+    await verifyTextIsPresent("email is required");
+    await verifyTextIsPresent("phone is required");
+    await verifyTextIsPresent("details is required");
+  });
+
+  test("do not show validation error for firstname, when value is provided", async () => {
+    setValue("First Name", "hello");
+    const button = screen.getByRole("button", { name: "Submit - via hook" });
+    userEvent.click(button);
+    await verifyTextIsPresent("first name is required", false);
+    await verifyTextIsPresent("last name is required");
+    await verifyTextIsPresent("email is required");
+    await verifyTextIsPresent("phone is required");
+    await verifyTextIsPresent("details is required");
+  });
+
+  test("do not show validation error for last name, when value is provided", async () => {
+    setValue("Last Name", "hello");
+    const button = screen.getByRole("button", { name: "Submit - via hook" });
+    userEvent.click(button);
+    await verifyTextIsPresent("first name is required");
+    await verifyTextIsPresent("last name is required", false);
+    await verifyTextIsPresent("email is required");
+    await verifyTextIsPresent("phone is required");
+    await verifyTextIsPresent("details is required");
+  });
+
+  test("do not show validation error for email, when value is provided", async () => {
+    setValue("Email address", "hello");
+    const button = screen.getByRole("button", { name: "Submit - via hook" });
+    userEvent.click(button);
+    await verifyTextIsPresent("first name is required");
+    await verifyTextIsPresent("last name is required");
+    await verifyTextIsPresent("email is required", false);
+    await verifyTextIsPresent("phone is required");
+    await verifyTextIsPresent("details is required");
+  });
+
+  test("do not show validation error for phone, when value is provided", async () => {
+    setValue("Phone", "hello");
+    const button = screen.getByRole("button", { name: "Submit - via hook" });
+    userEvent.click(button);
+    await verifyTextIsPresent("first name is required");
+    await verifyTextIsPresent("last name is required");
+    await verifyTextIsPresent("email is required");
+    await verifyTextIsPresent("phone is required", false);
+    await verifyTextIsPresent("details is required");
+  });
+
+  test("do not show validation error for details, when value is provided", async () => {
+    setValue("Enter your message here", "hello");
+    const button = screen.getByRole("button", { name: "Submit - via hook" });
+    userEvent.click(button);
+    await verifyTextIsPresent("first name is required");
+    await verifyTextIsPresent("last name is required");
+    await verifyTextIsPresent("email is required");
+    await verifyTextIsPresent("phone is required");
+    await verifyTextIsPresent("details is required", false);
   });
 });
