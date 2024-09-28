@@ -3,7 +3,7 @@ import { useFormik, Formik, Form, Field, ErrorMessage } from "formik";
 import Navbar from "../../components/Navbar";
 import { FlexContainer, ErrorContainer } from "../../components/Styles";
 
-const ContactUs = () => {
+export const ContactUs = () => {
   const initValues = {
     firstName: "",
     lastName: "",
@@ -17,11 +17,11 @@ const ContactUs = () => {
   };
 
   const schema = yup.object({
-    firstName: yup.string().required("*"),
-    lastName: yup.string().required("*"),
-    email: yup.string().required("*"),
-    phone: yup.string().required("*"),
-    details: yup.string().required("*"),
+    firstName: yup.string().required("first name is required"),
+    lastName: yup.string().required("last name is required"),
+    email: yup.string().required("email is required"),
+    phone: yup.string().required("phone is required"),
+    details: yup.string().required("details is required"),
   });
 
   const form = useFormik({
@@ -108,7 +108,7 @@ const ContactUs = () => {
                     form.errors.details}
                 </ErrorContainer>
                 <div>
-                  <button type="submit">Submit</button>
+                  <button type="submit">Submit - via hook</button>
                 </div>
               </form>
             </div>
@@ -166,7 +166,7 @@ const ContactUs = () => {
                         component="span"
                       ></ErrorMessage>
                     </div>
-                    <button type="submit">Submit</button>
+                    <button type="submit">Submit - via Formik</button>
                   </Form>
                 )}
               </Formik>
@@ -177,5 +177,3 @@ const ContactUs = () => {
     </>
   );
 };
-
-export default ContactUs;
