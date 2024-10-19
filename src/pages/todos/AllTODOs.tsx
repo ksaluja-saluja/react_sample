@@ -1,5 +1,4 @@
 import SearchTODOs from "./Search";
-import ResultTODOs from "./Result";
 import Navbar from "../../components/Navbar";
 import { useGetTodos } from "../hooks/useGetTodos";
 
@@ -18,9 +17,6 @@ const AllTodos = () => {
             <p>Total TODOs are {total}</p>
             <div>
               <SearchTODOs></SearchTODOs>
-            </div>
-            <div>
-              <ResultTODOs></ResultTODOs>
             </div>
           </>
         )}

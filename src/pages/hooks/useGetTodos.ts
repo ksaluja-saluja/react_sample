@@ -15,7 +15,6 @@ export const useGetTodos = (props: FetchTODO) => {
     if (url) {
       setLoading(true);
       const urlToFetch = id ? `${url}/${id}` : url
-      console.log('FETCHING', urlToFetch)
       fetch(urlToFetch)
         .then((response) => response.json())
         .then((data) => {
