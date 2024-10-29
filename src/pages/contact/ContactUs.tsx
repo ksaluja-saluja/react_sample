@@ -2,11 +2,8 @@ import * as yup from "yup";
 import { useFormik, Formik, Form, Field, ErrorMessage } from "formik";
 import Navbar from "../../components/Navbar";
 import { FlexContainer, ErrorContainer } from "../../components/Styles";
-import { useDispatch } from "react-redux";
-import { addContact } from "../../reducers/contactSlice";
 
 export const ContactUs = () => {
-  const dispatch = useDispatch();
   const initValues = {
     firstName: "",
     lastName: "",
@@ -17,7 +14,6 @@ export const ContactUs = () => {
 
   const handleSubmit = (values: any) => {
     console.log("Values are", values);
-    dispatch(addContact(values));
   };
 
   const schema = yup.object({

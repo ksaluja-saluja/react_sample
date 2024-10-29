@@ -2,7 +2,6 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ContactUs } from "./ContactUs";
 import { MemoryRouter } from "react-router-dom";
-import { renderWithProviders } from "../../test/test-utils";
 
 describe("tests", () => {
   const verifyTextIsPresent = async (
@@ -26,7 +25,7 @@ describe("tests", () => {
   };
 
   beforeEach(() => {
-    renderWithProviders(
+    render(
       <MemoryRouter>
         <ContactUs />
       </MemoryRouter>
